@@ -32,6 +32,8 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        alert('1');
+
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -41,25 +43,41 @@ var app = {
 
         console.log('Received Event: ' + id);
 
+        alert('2');
+
+        try {
+            var pn = PushNotification;
+            alert('PushNotification is a thing');
+        }
+        catch (e) {
+            alert('PushNotification is not a thing');
+        }
         const push = PushNotification.init({
             ios: {
-                alert: "true",
-                badge: "true",
-                sound: "true"
+                alert: 'true',
+                badge: 'true',
+                sound: 'true'
             }
         });
 
+        alert('push:', push);
+
         push.on('registration', function(data) {
-            console.log(data.registrationId);
+            alert('registered');
+            alert(JSON.stringify(data, null, 4));
         });
 
         push.on('notification', function(data) {
-            console.log(data);
+            alert('notified');
+            alert(JSON.stringify(data, null, 4));
         });
 
         push.on('error', function(e) {
-            console.log(e);
+            alert('error');
+            alert(e.toString());
         });
+
+        alert('3');
     }
 };
 
