@@ -40,6 +40,26 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+
+        const push = PushNotification.init({
+            ios: {
+                alert: "true",
+                badge: "true",
+                sound: "true"
+            }
+        });
+
+        push.on('registration', function(data) {
+            console.log(data.registrationId);
+        });
+
+        push.on('notification', function(data) {
+            console.log(data);
+        });
+
+        push.on('error', function(e) {
+            console.log(e);
+        });
     }
 };
 
